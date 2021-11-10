@@ -39,21 +39,21 @@
 	font-family: Roboto-Light;
 	font-size: 18px;
 }
-#navBarLinks li {
+#navBar li {
 	float: left;
 	display: block;
 	color: white;
 	text-align: center;
 	text-decoration: none;
 }
-#navBarLinks li a {
+#navBar li a {
 	display: block;
 	color: white;
 	text-align: center;
 	padding: 14px 16px;
 	text-decoration: none;
 }
-#navBarLinks a:hover {
+#navBar a:hover {
 	background-color:#111;
 }
 #currentPage {
@@ -62,10 +62,7 @@
 	padding: 14px 16px;
 }
 #date {
-	float: left;
-	display: block;
-	color: white;
-	text-align: right;
+	text-align: right !important;
 	padding: 14px 16px;
 	width: 1350px;
 }
