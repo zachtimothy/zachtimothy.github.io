@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Dashboard</title>
+        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="icon" type="image/x-icon" href="https://carc.pshs.edu.ph/images/logo-digital.png">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            @media (max-width: 575px) {
+                #userinfo {
+                    margin-bottom: 5px !important;
+                }
+                .contacts h4 {
+                    font-size: 20px;
+                }
+                #btn {
+                    z-index: -2;
+                }
+                #header {
+                    color: #0072ce;
+                    font-size: 10px;
+                }
+            }
+            body {
+                background-color: #333;
+                color: white;
+                position: relative;
+                min-height: 100vh;
+                width: 100%;
+            }
+            .sidebar {
+                position: fixed;
+                height: 100%;
+                width: 78px;
+                top: 0;
+                left: 0;
+                background: #0064b4;
+                padding: 6px 14px;
+                transition: all 0.5s ease
+            }
+            .sidebar.active {
+                width: 240px;
+            }
+            .sidebar .logo_content .logo {
+                color: #fff;
+                display: flex;
+                height: 50px;
+                width: 100%;
+                align-items: center;
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.5s ease;
+            }
+            .sidebar.active .logo_content .logo {
+                opacity: 1;
+                pointer-events: none;
+            }
+            .logo_content .logo i {
+                font-size: 28px;
+                margin-right: 5px;
+            }
+            .logo_content .logo .logo_name {
+                font-size: 20px;
+                font-weight: 400;
+            }
+            .sidebar #btn {
+                position: absolute;
+                color: #fff;
+                left: 50%;
+                top: 6px;
+                font-size: 20px;
+                height: 50px;
+                width: 50px;
+                text-align: center;
+                line-height: 50px;
+                transform: translateX(-50%);
+            }
+            .sidebar.active #btn {
+                left: 90%;
+            }
+            .sidebar ul {
+                margin-top: 20px;
+            }
+            .sidebar ul li {
+                position: relative;
+                height: 50px;
+                width: 100%;
+                margin: 0;
+                list-style: none;
+                line-height: 50px;
+            }
+            .sidebar ul li input {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                left: 0;
+                top: 0;
+                border-radius: 12px;
+                outline: none;
+                border: none;
+                background: #004781;
+                padding-left: 50px;
+                font-size: 18px;
+                color: #fff;
+            }
+            .sidebar ul li .bx-search {
+                position: absolute;
+                z-index: 99;
+                color: #fff;
+                font-size: 22px;
+            }
+            .sidebar ul li a {
+                color: #fff;
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+                transition: all 0.4s ease;
+                border-radius: 12px;
+                white-space: nowrap;
+                margin-top: 8px;
+            }
+            .sidebar ul li a:hover {
+                background: #fff;
+                color: #0064b4;
+            }
+            .sidebar ul li i {
+                height: 50px;
+                min-width: 50px;
+                border-radius: 12px;
+                line-height: 50px;
+                text-align: center;
+            }
+            .sidebar .links_name{
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.5s ease;
+            }
+            .sidebar.active .links_name{
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .sidebar .profile_content {
+                position: absolute;
+                color: #fff;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+            }
+            .sidebar .profile_content .profile{
+                position: relative;
+                padding: 10px 6px;
+                height: 60px;
+                background: none;
+                transition: all 0.4s ease;
+            }
+            .sidebar.active .profile_content .profile {
+                background: #004781;
+            }
+            .profile_content .profile .profile_details {
+                display: flex;
+                align-items: center;
+                opacity: 0;
+                pointer-events: none;
+                white-space: nowrap;
+            }
+            .sidebar.active .profile .profile_details {
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .profile .profile_details img {
+                height: 45px;
+                width: 45px;
+                object-fit: cover;
+                border-radius: 12px;
+                margin-right: 10px;
+            }
+            .profile .profile_details .student_name {
+                margin-left: 10px;
+            }
+            .profile .profile_details .name {
+                font-size: 15px;
+                font-weight: 400;
+            }
+            .profile .profile_details .grade {
+                font-size: 12px;
+            }
+            .profile #log_out {
+                position: absolute;
+                bottom: 5px;
+                left: 50%;
+                transform: translateX(-50%);
+                min-width: 50px;
+                line-height: 50px;
+                font-size: 20px;
+                border-radius: 12px;
+                text-align: center;
+                transition: all 0.4s ease;
+                background: #004781;
+                color: #fff;
+            }
+            .sidebar.active .profile #log_out {
+                left: 88%;
+            }
+            .sidebar.active .profile #log_out {
+                background: none;
+            }
+            .content {
+                position: relative;
+                min-height: 100vh;
+                width: calc(100% - 78px);
+                left: 78px;
+                top: 0;
+                transition: all 0.5s ease;
+            }
+            .sidebar.active ~ .content {
+                width: calc(100% - 240px);
+                left: 240px;
+            }
+            .container-fluid {
+                padding: 30px;
+            }
+            .button {
+                background-color: #4CAF50;
+                border: none;
+                color: white;
+                padding: 1px 5px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+            .button2 {
+                background: rgba(0,0,0,0); 
+                color: white; 
+                border: 3px solid #0072ce;
+            }
+            .contacts li h4 a {
+              position: relative;  
+              text-decoration: none;
+            }
+            .contacts li h4 a::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                height: 2px;
+                background: currentColor;
+                transform: scaleX(0);
+                transform-origin: right;
+                transition: transform 100ms ease-in;
+            }
+            .contacts li h4 a:hover::after {
+                transform: scaleX(1);
+                transform-origin: left;
+            }
+            .btn {
+                cursor: pointer;
+                position: relative;
+                z-index: 1;
+            }
+            .btn::after {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                top: 0;
+                right: 0;
+                z-index: -1;
+                transition: transform 100ms ease-in;
+                transform: scaleX(0);
+                transform-origin: right;
+            }
+            .btn:hover::after {
+                transform: scaleX(1);
+                transform-origin: left;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="sidebar">
+            <div class="logo_content">
+                <div class="logo">
+                    <img src="img/khub_logo.png" alt="" style="width: 12%;">
+                    <div class="logo_name">KHub-CLC</div>
+                </div>
+                <i class='bx bx-menu' id="btn"></i>
+            </div>
+            <ul class="nav_list">
+                <li>
+                    <i class='bx bx-search' ></i>
+                    <input type="text" placeholder="Search...">
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bxs-dashboard' ></i>
+                        <span class="links_name">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-home' ></i>
+                        <span class="links_name">Site Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-calendar'></i>
+                        <span class="links_name">Calendar</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-file-blank'></i>
+                        <span class="links_name">Private Files</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bxs-graduation'></i>
+                        <span class="links_name">My courses</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-folder'></i>
+                        <span class="links_name">More...</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="profile_content">
+                <div class="profile">
+                    <div class="profile_details">
+                        <img src="https://www.tenforums.com/geek/gars/images/2/types/thumb_15951118880user.png" alt="">
+                        <div class="student-name">
+                            <div class="name">User</div>
+                            <div class="grade">Batch 2025</div>
+                        </div>
+                    </div>
+                    <a href="index.html" id="log_out_link">
+                        <i class='bx bx-log-out' id="log_out"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <nav class="navbar navbar-expand-md navbar-dark" style="background: #0072ce; position: fixed; z-index: 5 !important; width: 100%;">
+                <a href="homepage.html">
+                    <img src="img/khub_logo.png" alt="" style="width: 30px;">
+                </a>
+                <h4 id="header">&nbsp;PSHS-CLC Knowledge Hub</h4>
+            </nav>
+            <div class="container-fluid">
+                <div class="row" style="margin-top: 50px;">
+                    <div class="col-sm-12" style="background: #555; border: 1px solid gray; border-top: 3px solid #0072ce;">
+                        <div class="row">
+                            <img src="https://www.tenforums.com/geek/gars/images/2/types/thumb_15951118880user.png" alt="" style="border-radius: 60px; width: 100px; margin: 20px; margin-bottom: 90px; margin-right: 0;"  id="userinfo">
+                            <div class="container" style="margin: 0; width: 140px;">
+                                <h1 style="margin-top: 20px;">User</h1>
+                                <p><em>Grade 9-Arayat</em></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col-sm-12" style="background: #555; border: 1px solid gray; border-top: 3px solid #0072ce; padding: 15px;">
+                        <h4>Latest Announcements</h4>
+                        <h6>(No announcements have been posted yet.)</h6>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col-sm-12" style="background: #555; border: 1px solid gray; border-top: 3px solid #0072ce; padding: 15px;">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h4>Recently accessed courses</h4>
+                            </div>
+                            <div class="col-sm-6" style="text-align: right;">
+                                <button class="button button2">&lt;</button>
+                                <button class="button button2">></button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 mx-auto">
+                                <div class="card img-fluid" style="width: 100%">
+                                    <img class="card-img-top" src="img/arayat.png" alt="Card image">
+                                    <div class="card-body">
+                                        <p class="card-title" style="color: gray;">Grade 9 2025</p>
+                                        <a href="subject-page.html" class="btn btn-primary">Computer Science 3</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col-sm-12" style="background: #555; border: 1px solid gray; border-top: 3px solid #0072ce; padding: 15px;">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h4>Course overview</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 mr-auto">
+                                <div class="card img-fluid" style="width: 100%;">
+                                    <img class="card-img-top" src="img/arayat.png" alt="Card image">
+                                    <div class="card-body">
+                                        <p class="card-title" style="color: gray;">Grade 9 2025</p>
+                                        <a href="subject-page.html" class="btn btn-primary">Computer Science 3</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" style="background: #444; width: 100%; color: #444; padding: 40px 30px;">
+                <div class="col-md-5">
+                    <h3 style="color: #1177d1;" id="contacts">Stay in touch</h3>
+                    <h4 style="color: #fff;">PSHS Knowledge Hub - CLC</h4>
+                    <ul class="contacts">
+                        <li>
+                            <h4><a href="https://clc.pshs.edu.ph">https://clc.pshs.edu.ph</a></h4>
+                        </li>
+                        <li>
+                            <h4><a href="tel:Tel.No:(045)4990136">Tel. No :  (045) 499 0136</a></h4>
+                        </li>
+                        <li>
+                            <h4><a href="mailto:khub@clc.pshs.edu.ph">khub@clc.pshs.edu.ph</a></h4>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script>
+            let btn = document.querySelector("#btn");
+            let sidebar = document.querySelector(".sidebar");
+            let searchBtn = document.querySelector(".btx-search");
+
+            btn.onclick = function() {
+                sidebar.classList.toggle("active");
+            }
+            searchBtn.onclick = function() {
+                sidebar.classList.toggle("active");
+            }
+        </script>
+    </body>
+</html>
