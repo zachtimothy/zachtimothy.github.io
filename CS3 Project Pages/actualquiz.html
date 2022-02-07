@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title>2Q Quiz 1: Attempt 1</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+  <style>
+    *{
+      margin-bottom:0 !important
+    }
+    body{
+        background-color:#333;
+    }
+    .navedit{
+        line-height:50px;
+        background: linear-gradient(to bottom, rgba(17, 119, 209, 1), rgba(33, 64, 164, 1));
+        color:white;
+    }
+    .fas{
+        padding: 0px 10px;
+        color:white;
+    }
+    .quiz{
+        background-color:#444;
+        padding:20px;
+        padding-bottom:50px;
+        margin:20px;
+        border-top: 3px solid #0072ce;
+    }
+    .big{
+        font-size:20px;
+    }
+    .fancy-link {
+       text-decoration: none;
+       color: white;
+       position: relative;
+    }
+    .fancy-link::after {
+       content: "";
+       position: absolute;
+       left: 0;
+       bottom: 0;  
+       width: 100%;
+       height: 2px;
+       background: currentColor;
+       transform: scaleX(0);
+       transform-origin: right;
+       transition: transform 250ms ease-in;
+    }
+    .fancy-link:hover::after {
+       transform: scaleX(1);
+       transform-origin: left;
+    } 
+    .left{
+        text-align:left;
+    }
+    .center{
+        text-align:center;
+    }
+    .heading{
+        background-color:#DDDDDD;
+    }
+    .question{
+        background-color:#A4D5FF;
+        text-align: center;
+        line-height:50px;
+        margin-bottom:80px;
+    }
+    .grey{
+        background-color:#DDDDDD;
+        text-align: center;
+        line-height:40px;
+        margin-top:40px;
+    }
+    .text{
+        width:50%;
+    }
+    .btn {
+      color: white;
+    }
+  </style>
+
+</head>
+
+<body>
+    <div class="navedit">
+        <nav class="navbar navbar-expand-md navbar-dark">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><i class="fas fa-bars"></i></a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Course Sections</a>
+                      <a class="dropdown-item" href="#">Participants</a>
+                      <a class="dropdown-item" href="#">Badges</a>
+                      <a class="dropdown-item" href="#">Competencies</a>
+                      <a class="dropdown-item" href="#">Grades</a>
+                    </div>
+                </li>
+            </ul>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-user"></i></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#"><i class="fas fa-envelope"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-bell"></i></a>
+                </li>
+            </ul>
+
+            </div>
+        </nav>
+     </div>
+
+    <div class="container-fluid">
+        <div class="quiz">
+            <a class="fancy-link" href=""><span>Dashboard</span></a>  | 
+            <a class="fancy-link" href=""><span>My Courses</span></a>  | 
+            <a class="fancy-link" href=""><span>CS3-9ar</span></a>  |
+            <a class="fancy-link" href=""><span>Second Quarter</span></a>  |
+            <a class="fancy-link" href=""><span>2Q Quiz 1</span></a>
+        </div>
+
+        <div class="quiz">
+            <div class="row">
+              <div class="col-sm-11 mx-auto">
+                <p class=" grey">Question <strong>1</strong></p>
+                <div class=" question">
+                  <p>Which of the following tags does not belong to the group?</p>
+                  <p><input type="radio" id="oddsPref" name="oddsPref" value="q1" /> a. video</p>
+                  <p><input type="radio" id="oddsPref1" name="oddsPref" value="q1" /> b. img </p>
+                  <p><input type="radio" id="oddsPref2" name="oddsPref" value="q1" /> c. srv</p>
+                  <p><input type="radio" id="oddsPref3" name="oddsPref" value="q1" /> d. embed</p><br>
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Reveal Answer</button>
+                    <div class="dropdown-menu">
+                      <p class="dropdown-item">Answer: b. img</p>
+                    </div>
+                 </div><br>
+                </div>
+              </div>
+
+              <div class="col-sm-11 mx-auto">
+                <p class=" grey">Question <strong>2</strong></p>
+                <div class=" question">
+                  <p>Which of the following tags does not belong to the group?</p>
+                  <p><input type="radio" id="oddsPref4" name="oddsPref" value="q2" /> a. header</p>
+                  <p><input type="radio" id="oddsPref5" name="oddsPref" value="q2" /> b. aside </p>
+                  <p><input type="radio" id="oddsPref6" name="oddsPref" value="q2" /> c. container</p>
+                  <p><input type="radio" id="oddsPref7" name="oddsPref" value="q2" /> d. article</p><br>
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Reveal Answer</button>
+                    <div class="dropdown-menu">
+                      <p class="dropdown-item">Answer: c. container</p>
+                    </div>
+                 </div><br>
+                </div>
+              </div>
+
+              <div class="col-sm-11 mx-auto">
+                <p class=" grey">Question <strong>3</strong></p>
+                <div class=" question">
+                  <p>Which of the following is a container format for video?</p>
+                  <p><input type="radio" id="oddsPref8" name="oddsPref" value="q2" /> a. Ogg Theora</p>
+                  <p><input type="radio" id="oddsPref9" name="oddsPref" value="q2" /> b. MPEG 4 </p>
+                  <p><input type="radio" id="oddsPref10" name="oddsPref" value="q2" /> c. WAV</p>
+                  <p><input type="radio" id="oddsPref11" name="oddsPref" value="q2" /> d. WebM</p><br>
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Reveal Answer</button>
+                    <div class="dropdown-menu">
+                      <p class="dropdown-item">Answer: c. WAV</p>
+                    </div>
+                 </div><br>
+                </div>
+              </div>
+
+              
+              <div class="col-sm-11 mx-auto">
+                <p class=" grey">Question <strong>4</strong></p>
+                <div class=" question">
+                  <p>What attribute will start playing audio when some parts of it are already downloaded from the server?</p>
+                  <div class="form-group mx-auto text">
+                    <input type="text" class="form-control" id="usr">
+                  </div><br>
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Reveal Answer</button>
+                    <div class="dropdown-menu">
+                      <p class="dropdown-item">Answer: autoplay</p>
+                    </div>
+                 </div><br>
+                </div>
+              </div>
+
+              <div class="col-sm-11 mx-auto">
+                <p class=" grey">Question <strong>5</strong></p>
+                <div class=" question">
+                  <p>What attribute specifies the source of the audio?</p>
+                  <div class="form-group mx-auto text">
+                    <input type="text" class="form-control" id="usr1">
+                  </div><br>
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Reveal Answer</button>
+                    <div class="dropdown-menu">
+                      <p class="dropdown-item">Answer: src</p>
+                    </div>
+                 </div><br>
+                </div>
+              </div>
+
+              <div class="container text-center" style="margin-top:20px;">
+                <a href="quiz.html" class="btn" role="button">Finish Quiz</a>
+            </div>
+
+            </div>
+        </div>
+
+        <div class="quiz">
+            <div class="container text-center">
+                <a href="subject-page.html" class="btn" role="button">Back to Course</a>
+            </div>
+        </div>
+        
+     </div>
+</body>
+
+</html>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Course: Computer Science 3 - Arayat</title>
+        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="icon" type="image/x-icon" href="https://carc.pshs.edu.ph/images/logo-digital.png">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            @media (max-width: 575px) {
+                #userinfo {
+                    margin-bottom: 5px !important;
+                }
+                .contacts h4 {
+                    font-size: 20px;
+                }
+                #btn {
+                    z-index: -2;
+                }
+                .subj-content {
+                    padding-top: 20px !important;
+                    padding-left: 16px !important;
+                }
+                #header {
+                    color: #0072ce;
+                    font-size: 10px;
+                }
+                #quarter {
+                    font-size: 26px;
+                }
+                .cs-links, .cs-links2 {
+                    font-size: 8px;
+                }
+                .cs-links2 {
+                    margin-left: 0 !important;
+                }
+                #subj-name {
+                    font-size: 30px;
+                }
+                #contained-links {
+                    padding-left: 10px !important;
+                    padding-right: 10px !important;
+                }
+            }
+            body {
+                background-color: #333;
+                color: white;
+                position: relative;
+                min-height: 100vh;
+                width: 100%;
+            }
+            .sidebar {
+                position: fixed;
+                height: 100%;
+                width: 78px;
+                top: 0;
+                left: 0;
+                background: #0064b4;
+                padding: 6px 14px;
+                transition: all 0.5s ease
+            }
+            .sidebar.active {
+                width: 240px;
+            }
+            .sidebar .logo_content .logo {
+                color: #fff;
+                display: flex;
+                height: 50px;
+                width: 100%;
+                align-items: center;
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.5s ease;
+            }
+            .sidebar.active .logo_content .logo {
+                opacity: 1;
+                pointer-events: none;
+            }
+            .logo_content .logo i {
+                font-size: 28px;
+                margin-right: 5px;
+            }
+            .logo_content .logo .logo_name {
+                font-size: 20px;
+                font-weight: 400;
+            }
+            .sidebar #btn {
+                position: absolute;
+                color: #fff;
+                left: 50%;
+                top: 6px;
+                font-size: 20px;
+                height: 50px;
+                width: 50px;
+                text-align: center;
+                line-height: 50px;
+                transform: translateX(-50%);
+            }
+            .sidebar.active #btn {
+                left: 90%;
+            }
+            .sidebar ul {
+                margin-top: 20px;
+            }
+            .sidebar ul li {
+                position: relative;
+                height: 50px;
+                width: 100%;
+                margin: 0;
+                list-style: none;
+                line-height: 50px;
+            }
+            .sidebar ul li input {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                left: 0;
+                top: 0;
+                border-radius: 12px;
+                outline: none;
+                border: none;
+                background: #004781;
+                padding-left: 50px;
+                font-size: 18px;
+                color: #fff;
+            }
+            .sidebar ul li .bx-search {
+                position: absolute;
+                z-index: 99;
+                color: #fff;
+                font-size: 22px;
+            }
+            .sidebar ul li a {
+                color: #fff;
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+                transition: all 0.4s ease;
+                border-radius: 12px;
+                white-space: nowrap;
+                margin-top: 8px;
+            }
+            .sidebar ul li a:hover {
+                background: #fff;
+                color: #0064b4;
+            }
+            .sidebar ul li i {
+                height: 50px;
+                min-width: 50px;
+                border-radius: 12px;
+                line-height: 50px;
+                text-align: center;
+            }
+            .sidebar .links_name{
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.5s ease;
+            }
+            .sidebar.active .links_name{
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .sidebar .profile_content {
+                position: absolute;
+                color: #fff;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+            }
+            .sidebar .profile_content .profile{
+                position: relative;
+                padding: 10px 6px;
+                height: 60px;
+                background: none;
+                transition: all 0.4s ease;
+            }
+            .sidebar.active .profile_content .profile {
+                background: #004781;
+            }
+            .profile_content .profile .profile_details {
+                display: flex;
+                align-items: center;
+                opacity: 0;
+                pointer-events: none;
+                white-space: nowrap;
+            }
+            .sidebar.active .profile .profile_details {
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .profile .profile_details img {
+                height: 45px;
+                width: 45px;
+                object-fit: cover;
+                border-radius: 12px;
+                margin-right: 10px;
+            }
+            .profile .profile_details .student_name {
+                margin-left: 10px;
+            }
+            .profile .profile_details .name {
+                font-size: 15px;
+                font-weight: 400;
+            }
+            .profile .profile_details .grade {
+                font-size: 12px;
+            }
+            .profile #log_out {
+                position: absolute;
+                bottom: 5px;
+                left: 50%;
+                transform: translateX(-50%);
+                min-width: 50px;
+                line-height: 50px;
+                font-size: 20px;
+                border-radius: 12px;
+                text-align: center;
+                transition: all 0.4s ease;
+                background: #004781;
+                color: #fff;
+            }
+            .sidebar.active .profile #log_out {
+                left: 88%;
+            }
+            .sidebar.active .profile #log_out {
+                background: none;
+            }
+            .content {
+                position: relative;
+                min-height: 100vh;
+                width: calc(100% - 78px);
+                left: 78px;
+                top: 0;
+                transition: all 0.5s ease;
+            }
+            .sidebar.active ~ .content {
+                width: calc(100% - 240px);
+                left: 240px;
+            }
+            .container-fluid {
+                padding: 30px;
+            }
+            .button {
+                background-color: #4CAF50;
+                border: none;
+                color: white;
+                padding: 1px 5px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+            .button2 {
+                background: rgba(0,0,0,0); 
+                color: white; 
+                border: 3px solid #0072ce;
+            }
+            .contacts li h4 a, .cs-links, .cs-links2 {
+              position: relative;  
+              text-decoration: none;
+            }
+            .contacts li h4 a::after, .cs-links::after, .cs-links2::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                height: 2px;
+                background: currentColor;
+                transform: scaleX(0);
+                transform-origin: right;
+                transition: transform 100ms ease-in;
+            }
+            .contacts li h4 a:hover::after, .cs-links:hover::after, .cs-links2:hover::after {
+                transform: scaleX(1);
+                transform-origin: left;
+            }
+            .btn {
+                cursor: pointer;
+                position: relative;
+                z-index: 1;
+            }
+            .btn::after {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                top: 0;
+                right: 0;
+                z-index: -1;
+                transition: transform 100ms ease-in;
+                transform: scaleX(0);
+                transform-origin: right;
+            }
+            .btn:hover::after {
+                transform: scaleX(1);
+                transform-origin: left;
+            }
+            .cs-links {
+                font-size: 20px;
+            }
+            .cs-links2 {
+                font-size: 20px;
+                margin-left: 40px;
+            }
+            .sections {
+                border-bottom: 4px solid #0072ce;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="sidebar">
+            <div class="logo_content">
+                <div class="logo">
+                    <img src="img/khub_logo.png" alt="" style="width: 12%;">
+                    <div class="logo_name">KHub-CLC</div>
+                </div>
+                <i class='bx bx-menu' id="btn"></i>
+            </div>
+            <ul class="nav_list">
+                <li>
+                    <i class='bx bx-search' ></i>
+                    <input type="text" placeholder="Search...">
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bxs-dashboard' ></i>
+                        <span class="links_name">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-home' ></i>
+                        <span class="links_name">Site Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-calendar'></i>
+                        <span class="links_name">Calendar</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-file-blank'></i>
+                        <span class="links_name">Private Files</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bxs-graduation'></i>
+                        <span class="links_name">My courses</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-folder'></i>
+                        <span class="links_name">More...</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="profile_content">
+                <div class="profile">
+                    <div class="profile_details">
+                        <img src="https://www.tenforums.com/geek/gars/images/2/types/thumb_15951118880user.png" alt="">
+                        <div class="student-name">
+                            <div class="name">User</div>
+                            <div class="grade">Batch 2025</div>
+                        </div>
+                    </div>
+                    <a href="index.html" id="log_out_link">
+                        <i class='bx bx-log-out' id="log_out"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <nav class="navbar navbar-expand-md navbar-dark" style="background: #0072ce; position: fixed; z-index: 5 !important; width: 100%;">
+                <a href="homepage.html">
+                    <img src="img/khub_logo.png" alt="" style="width: 30px;">
+                </a>
+                <h4 id="header">&nbsp;PSHS-CLC Knowledge Hub</h4>
+            </nav>
+            <div class="container-fluid">
+                <div class="row" style="margin-top: 50px;">
+                    <div class="col-sm-12" style="background: #555; border: 1px solid gray; border-top: 3px solid #0072ce;">
+                        <div class="row">
+                            <div class="container" style="margin: 0; width: 600px;">
+                                <h1 style="margin-top: 20px; margin-left: 12px;" id="subj-name">Computer Science 3 - Arayat</h1>
+                                <div style="margin-bottom: 20px">
+                                    <a href="homepage.html" class="btn btn-primary" style="margin-left: 12px; background-color: #eef5f9; color: black; border-color: #eef5f9; border-radius: 0;">Dashboard</a>
+                                    <a href="#" class="btn btn-primary" style="background-color: #eef5f9; color: black; border-color: #eef5f9; border-radius: 0;">CS3-9ar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col-sm-12" style="background: #555; border: 1px solid gray; border-top: 3px solid #0072ce; padding: 15px;">
+                        <div class="col-sm-12">
+                            <div class="subj-content" style="padding-top: 50px; padding-left: 90px;">
+                                <a href="" class="cs-links"><span><i class='bx bx-group' style="color: white;"></i>&nbsp;Announcments</span></a>
+                                <br>
+                                <a href="" class="cs-links"><span><i class='bx bx-link' style="color: white;"></i>&nbsp;Google Meet Link<br><br></span></a>
+                                <h4><b>Synchronous Schedule</b></h4>
+                                <ul>
+                                <li><span>Fridays at 10:30am - 11:20am via Google Meet.</span></li></ul><br>
+                                <h4><b>Asynchronous Schedule</b></h4>
+                                <ul><li><span>Wednesdays at 10:30am - 11:20am</span></li>
+                                <li><span>Thursdays at 8:30am - 9:20am</span></li></ul><br>
+                                <h4 style="color: red;"><b>On the Feb 7 Cut-Off date</b></h4>
+                                <ul>
+                                <li><span>With reference to CID Memo 01-02 s. 2022, students will have until February 7, 2022 (4:30 PM) to submit their second quarter requirements. This means that teachers can only accept submissions for 2nd Quarter activities until this time. Beyond 4:30 PM, anything submitted will no longer count towards your 2nd Quarter grade.</span></li>
+                                <li><span>As for deductions, this may vary per teacher. In CS 3, each Lab Exercise (Alternative Assessment) has its deadline with corresponding rubric scores in the Timeliness criteria. This means that submissions past the original deadline cannot possibly have a perfect score. Quizzes (Formative Assessments) will remain available to answer until the cut-off date and time.</span></li>
+                                </ul>
+                                <br>
+                                <a href="" class="cs-links"><span><i class='bx bxs-window-alt' style="color: white;"></i>&nbsp;Subject Guide</span></a>
+                                <br>
+                                <a href="" class="cs-links"><span><i class='bx bxs-file-pdf' style="color: white;"></i>&nbsp;CS3 Course Syllabus 2021 - 2022<br><br><br></span></a>
+                            </div>
+                            <h2 id="quarter" style="text-align: center; color: #1177d1; border-bottom: 2px solid #1177d1; line-height: 0.1em; margin: 10px 0 20px;">
+                                <span style="background:#555; padding: 0 10px;">
+                                    2nd Quarter
+                                </span>
+                            </h2>
+                            <br>
+                            <div class="container-fluid" style="padding-left: 55px; padding-right: 55px; padding-top: 10px; padding-bottom: 10px;" id="contained-links">
+                                <h3 class="sections">HTML 5</h3>
+                                <a href="" class="cs-links2"><span><i class='bx bxs-file-pdf' style="color: white;"></i>&nbsp;Slide 1 - HTML 5</span></a>
+                                <br>
+                                <a href="" class="cs-links2"><span><i class='bx bx-link' style="color: white;"></i>&nbsp;Live Discussion: HTML 5</span></a>
+                                <br>
+                                <a href="" class="cs-links2"><span><i class='bx bxs-file-pdf' style="color: white;"></i>&nbsp;LG 6.1 HTML5 (layout tags)</span></a>
+                                <br>
+                                <a href="" class="cs-links2"><span><i class='bx bxs-file-pdf' style="color: white;"></i>&nbsp;LG 6.1 HTML5 (multimedia)</span></a>
+                                <h3 class="sections">Responsive Web Design</h3>
+                                <a href="" class="cs-links2"><span><i class='bx bxs-file-pdf' style="color: white;"></i>&nbsp;Slide 2 - RWD Intro</span></a>
+                                <br>
+                                <a href="" class="cs-links2"><span><i class='bx bx-link' style="color: white;"></i>&nbsp;Live Discussion: RWD Intro</span></a>
+                                <br>
+                                <a href="" class="cs-links2"><span><i class='bx bxs-file-pdf' style="color: white;"></i>&nbsp;Slide 3 - Bootstrap</span></a>
+                                <br>
+                                <a href="" class="cs-links2"><span><i class='bx bx-link' style="color: white;"></i>>&nbsp;Live Discussion: Bootstrap (Samat)</span></a>
+                                <h3 class="sections">Advanced CSS</h3>
+                                <a href="" class="cs-links2"><span><i class='bx bxs-file-pdf' style="color: white;"></i>&nbsp;LG 7.1 Advanced CSS (text links, nav bars)</span></a>
+                                <br>
+                                <a href="" class="cs-links2"><span><i class='bx bxs-file-pdf' style="color: white;"></i>&nbsp;LG 7.2 Advanced CSS (events)</span></a>
+                                <br>
+                                <a href="" class="cs-links2"><span><i class='bx bxs-file-pdf' style="color: white;"></i>&nbsp;LG 7.3 Advanced CSS (image sprites)</span></a>
+                                <br>
+                                <a href="" class="cs-links2"><span><i class='bx bxs-file-pdf' style="color: white;"></i>&nbsp;LG 7.4.1 Advanced CSS (transform)</span></a>
+                                <br>
+                                <a href="" class="cs-links2"><span><i class='bx bxs-file-pdf' style="color: white;"></i>&nbsp;LG 7.4.2 Advanced CSS (selectors)</span></a>
+                                <h3 class="sections">Lab Exercises</h3>
+                                <a href="" class="cs-links2"><span><i class='bx bx-file' style="color: white;"></i>&nbsp;2Q Lab Exercise 1: Cafe or Restaurant Page</span></a>
+                                <br>
+                                <a href="" class="cs-links2"><span><i class='bx bx-file' style="color: white;"></i>&nbsp;2Q Lab Exercise 2: Balitang News</span></a>
+                                <br>
+                                <a href="" class="cs-links2"><span><i class='bx bx-group' style="color: white;"></i>&nbsp;2Q Peer Evaluation</span></a>
+                                <h3 class="sections">Quizzes</h3>
+                                <a href="quiz.html" class="cs-links2"><span><i class='bx bx-list-ul' style="color: white;"></i>&nbsp;2Q Quiz 1</span></a>
+                                <br>
+                                <a href="quiz.html" class="cs-links2"><span><i class='bx bx-list-ul' style="color: white;"></i>&nbsp;2Q Quiz 2</span></a>
+                                <h3 class="sections">Project</h3>
+                                <a href="" class="cs-links2"><span><i class='bx bx-file' style="color: white;"></i>&nbsp;2Q Project: K-Hub, Reimagined</span></a>
+                                <br>
+                                <a href="" class="cs-links2"><span><i class='bx bx-group' style="color: white;"></i>&nbsp;2Q Project Groups</span></a>
+                                <br><br><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" style="background: #444; width: 100%; color: #444; padding: 40px 30px;">
+                <div class="col-md-5">
+                    <h3 style="color: #1177d1;" id="contacts">Stay in touch</h3>
+                    <h4 style="color: #fff;">PSHS Knowledge Hub - CLC</h4>
+                    <ul class="contacts">
+                        <li>
+                            <h4><a href="https://clc.pshs.edu.ph">https://clc.pshs.edu.ph</a></h4>
+                        </li>
+                        <li>
+                            <h4><a href="tel:Tel.No:(045)4990136">Tel. No :  (045) 499 0136</a></h4>
+                        </li>
+                        <li>
+                            <h4><a href="mailto:khub@clc.pshs.edu.ph">khub@clc.pshs.edu.ph</a></h4>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script>
+            let btn = document.querySelector("#btn");
+            let sidebar = document.querySelector(".sidebar");
+            let searchBtn = document.querySelector(".btx-search");
+
+            btn.onclick = function() {
+                sidebar.classList.toggle("active");
+            }
+            searchBtn.onclick = function() {
+                sidebar.classList.toggle("active");
+            }
+        </script>        
+    </body>
+</html>
